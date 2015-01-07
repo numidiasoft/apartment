@@ -5,16 +5,9 @@ describe "apartment rake tasks", database: :postgresql do
 
   before do
     @rake = Rake::Application.new
+    rake_file = Dir["#{File.dirname(__FILE__)}/../../lib/tasks/**/*.rake"].first
     Rake.application = @rake
-    Dummy::Application.load_tasks
-
-    # rails tasks running F up the schema...
-    Rake::Task.define_task('db:migrate')
-    Rake::Task.define_task('db:seed')
-    Rake::Task.define_task('db:rollback')
-    Rake::Task.define_task('db:migrate:up')
-    Rake::Task.define_task('db:migrate:down')
-    Rake::Task.define_task('db:migrate:redo')
+    Rake.load_rakefile(rake_file)
 
     Apartment.configure do |config|
       config.use_schemas = true

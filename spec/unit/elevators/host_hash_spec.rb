@@ -7,17 +7,17 @@ describe Apartment::Elevators::HostHash do
 
   describe "#parse_tenant_name" do
     it "parses the host for a domain name" do
-      request = ActionDispatch::Request.new('HTTP_HOST' => 'example.com')
+      request = Rack::Request.new('HTTP_HOST' => 'example.com')
       elevator.parse_tenant_name(request).should == 'example_tenant'
     end
 
     it "raises TenantNotFound exception if there is no host" do
-      request = ActionDispatch::Request.new('HTTP_HOST' => '')
+      request = Rack::Request.new('HTTP_HOST' => '')
       expect { elevator.parse_tenant_name(request) }.to raise_error(Apartment::TenantNotFound)
     end
 
     it "raises TenantNotFound exception if there is no database associated to current host" do
-      request = ActionDispatch::Request.new('HTTP_HOST' => 'example2.com')
+      request = Rack::Request.new('HTTP_HOST' => 'example2.com')
       expect { elevator.parse_tenant_name(request) }.to raise_error(Apartment::TenantNotFound)
     end
   end

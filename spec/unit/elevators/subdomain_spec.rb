@@ -8,12 +8,12 @@ describe Apartment::Elevators::Subdomain do
   describe "#parse_tenant_name" do
     context "assuming tld_length of 1" do
       it "should parse subdomain" do
-        request = ActionDispatch::Request.new('HTTP_HOST' => 'foo.bar.com')
+        request = Rack::Request.new('HTTP_HOST' => 'foo.bar.com')
         elevator.parse_tenant_name(request).should == 'foo'
       end
 
       it "should return nil when no subdomain" do
-        request = ActionDispatch::Request.new('HTTP_HOST' => 'bar.com')
+        request = Rack::Request.new('HTTP_HOST' => 'bar.com')
         elevator.parse_tenant_name(request).should be_nil
       end
     end
@@ -26,12 +26,12 @@ describe Apartment::Elevators::Subdomain do
       end
 
       it "should parse subdomain in the third level domain" do
-        request = ActionDispatch::Request.new('HTTP_HOST' => 'foo.bar.co.uk')
+        request = Rack::Request.new('HTTP_HOST' => 'foo.bar.co.uk')
         elevator.parse_tenant_name(request).should == "foo"
       end
 
       it "should return nil when no subdomain in the third level domain" do
-        request = ActionDispatch::Request.new('HTTP_HOST' => 'bar.co.uk')
+        request = Rack::Request.new('HTTP_HOST' => 'bar.co.uk')
         elevator.parse_tenant_name(request).should be_nil
       end
     end

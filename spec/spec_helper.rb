@@ -1,36 +1,33 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-# Configure Rails Environment
-ENV["RAILS_ENV"] = "test"
+# Configure Rack Environment
+ENV["RACK_ENV"] = "test"
+ENV["APP_ROOT"] = File.expand_path(File.join(__dir__, "support"))
 
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
-require "rspec/rails"
+#require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require "active_support"
+require "rspec"
 require 'capybara/rspec'
-require 'capybara/rails'
+require 'rake'
+
+require_relative '../lib/apartment'
+require_relative '../lib/apartment/reloader'
 
 begin
   require 'pry'
-  silence_warnings{ IRB = Pry }
 rescue LoadError
 end
-
-ActionMailer::Base.delivery_method = :test
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.default_url_options[:host] = "test.com"
-
-Rails.backtrace_cleaner.remove_silencers!
 
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
 
-  config.include RSpec::Integration::CapybaraSessions, type: :request
   config.include Apartment::Spec::Setup
 
   # Somewhat brutal hack so that rails 4 postgres extensions don't modify this file
   config.after(:suite) do
-    `git checkout -- spec/dummy/db/schema.rb`
+    #`git checkout -- spec/support/db/schema.rb`
   end
 end
 

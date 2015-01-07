@@ -30,25 +30,6 @@ describe Apartment::Tenant do
       # end
     end
 
-    # TODO re-organize these tests
-    context "with prefix and schemas" do
-      describe "#create" do
-        before do
-          Apartment.configure do |config|
-            config.prepend_environment = true
-            config.use_schemas = true
-          end
-
-          subject.reload!(config)
-        end
-
-        after { subject.drop "db_with_prefix" rescue nil }
-
-        it "should create a new database" do
-          subject.create "db_with_prefix"
-        end
-      end
-    end
   end
 
   context "using postgresql", database: :postgresql do
