@@ -19,7 +19,7 @@ module Apartment
       process_excluded_models
     end
 
-    #   Fetch the proper multi-tenant adapter based on Rails config
+    #   Fetch the proper multi-tenant adapter based on rack config
     #
     #   @return {subclass of Apartment::AbstractAdapter}
     #
@@ -58,11 +58,10 @@ module Apartment
 
     private
 
-    #   Fetch the rails database configuration
+    #   Fetch the rack app database configuration
     #
     def config
-      @config ||= (ActiveRecord::Base.configurations[Rails.env] ||
-                    Rails.application.config.database_configuration[Rails.env]).symbolize_keys
+      @config ||= ActiveRecord::Base.connection_config
     end
   end
 

@@ -135,10 +135,10 @@ module Apartment
         Apartment.establish_connection @config
       end
 
-      #   Load the rails seed file into the db
+      #   Load the rack app seed file into the db
       #
       def seed_data
-        silence_stream(STDOUT){ load_or_abort("#{Rails.root}/db/seeds.rb") } # Don't log the output of seeding the db
+        silence_stream(STDOUT){ load_or_abort("#{ENV["APP_ROOT"]}/db/seeds.rb") } # Don't log the output of seeding the db
       end
       alias_method :seed, :seed_data
 
@@ -170,14 +170,14 @@ module Apartment
       #   Prepend the environment if configured and the environment isn't already there
       #
       #   @param {String} tenant Database name
-      #   @return {String} tenant name with Rails environment *optionally* prepended
+      #   @return {String} tenant name with rack app environment *optionally* prepended
       #
       def environmentify(tenant)
-        unless tenant.include?(Rails.env)
+        unless tenant.include?(ENV["RACK_ENV"])
           if Apartment.prepend_environment
-            "#{Rails.env}_#{tenant}"
+            "#{ENV["RACK_ENV"]}_#{tenant}"
           elsif Apartment.append_environment
-            "#{tenant}_#{Rails.env}"
+            "#{tenant}_#{ENV["RACK_ENV"]}"
           else
             tenant
           end

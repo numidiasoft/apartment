@@ -1,4 +1,3 @@
-require 'apartment/railtie' if defined?(Rails)
 require 'active_support/core_ext/object/blank'
 require 'forwardable'
 require 'active_record'
@@ -58,8 +57,7 @@ module Apartment
 
     def database_schema_file
       return @database_schema_file if defined?(@database_schema_file)
-
-      @database_schema_file = Rails.root.join('db', 'schema.rb')
+      @database_schema_file = Pathname.new(ENV["APP_ROOT"]).join('db', 'schema.rb')
     end
 
     def tld_length

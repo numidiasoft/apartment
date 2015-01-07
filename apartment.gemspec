@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.homepage = %q{https://github.com/influitive/apartment}
+  s.homepage = %q{https://github.com/numidiasoft/apartment}
   s.licenses = ["MIT"]
 
   s.post_install_message = <<-MSG
@@ -33,22 +33,21 @@ Gem::Specification.new do |s|
   s.add_dependency 'activerecord',    '>= 3.1.2', '< 5.0'   # must be >= 3.1.2 due to bug in prepared_statements
   s.add_dependency 'rack',            '>= 1.3.6'
 
-  s.add_development_dependency 'appraisal'
-  s.add_development_dependency 'rake',         '~> 0.9'
-  s.add_development_dependency 'rspec-rails',  '~> 2.14'
-  s.add_development_dependency 'guard-rspec',  '~> 4.2'
-  s.add_development_dependency 'capybara',     '~> 2.0'
+  s.add_dependency 'rake',         '~> 0.9'
+  s.add_dependency 'rspec', '~>3.1.0'
+  s.add_dependency 'guard-rspec',  '~> 4.2'
+  s.add_dependency 'capybara',     '~> 2.0'
 
   if defined?(JRUBY_VERSION)
-    s.add_development_dependency 'activerecord-jdbc-adapter'
-    s.add_development_dependency 'activerecord-jdbcpostgresql-adapter'
-    s.add_development_dependency 'activerecord-jdbcmysql-adapter'
-    s.add_development_dependency 'jdbc-postgres', '9.2.1002'
-    s.add_development_dependency 'jdbc-mysql'
-    s.add_development_dependency 'jruby-openssl'
+    s.add_dependency 'activerecord-jdbc-adapter'
+    s.add_dependency 'activerecord-jdbcpostgresql-adapter'
+    s.add_dependency 'activerecord-jdbcmysql-adapter'
+    s.add_dependency 'jdbc-postgres', '9.2.1002'
+    s.add_dependency 'jdbc-mysql'
+    s.add_dependency 'jruby-openssl'
   else
-    s.add_development_dependency 'mysql2', '~> 0.3.10'
-    s.add_development_dependency 'pg',     '>= 0.11.0'
-    s.add_development_dependency 'sqlite3'
+    s.add_dependency 'mysql2', '~> 0.3.10'
+    s.add_dependency 'pg',     '>= 0.11.0'
+    s.add_dependency 'sqlite3'
   end
 end
