@@ -3,7 +3,7 @@ $: << File.expand_path("../lib", __FILE__)
 require "apartment/version"
 
 Gem::Specification.new do |s|
-  s.name = %q{apartment}
+  s.name = %q{rack-apartment}
   s.version = Apartment::VERSION
 
   s.authors       = ["Ryan Brunner", "Brad Robertson"]
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.homepage = %q{https://github.com/numidiasoft/apartment}
+  s.homepage = %q{https://github.com/numidiasoft/rack-apartment}
   s.licenses = ["MIT"]
 
   s.post_install_message = <<-MSG
