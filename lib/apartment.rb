@@ -10,7 +10,7 @@ module Apartment
 
     extend Forwardable
 
-    ACCESSOR_METHODS  = [:use_schemas, :use_sql, :seed_after_create, :prepend_environment, :append_environment]
+    ACCESSOR_METHODS  = [:use_schemas, :use_sql, :seed_after_create, :prepend_environment, :append_environment, :load_database_file_schema]
     WRITER_METHODS    = [:tenant_names, :database_schema_file, :excluded_models, :default_schema, :persistent_schemas, :connection_class, :tld_length, :db_migrate_tenants]
 
     attr_accessor(*ACCESSOR_METHODS)
@@ -87,6 +87,10 @@ module Apartment
     def use_postgres_schemas=(to_use_or_not_to_use)
       Apartment::Deprecation.warn "[Deprecation Warning] `use_postgresql_schemas=` is now deprecated, please use `use_schemas=`"
       self.use_schemas = to_use_or_not_to_use
+    end
+
+    def load_database_file_schema
+      @load_database_file_schema || true
     end
   end
 

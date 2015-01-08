@@ -20,7 +20,8 @@ module Apartment
         create_tenant(tenant)
 
         switch(tenant) do
-          import_database_schema
+          # Load schema file if necessary
+          import_database_schema if Apartment.load_database_file_schema
 
           # Seed data if appropriate
           seed_data if Apartment.seed_after_create
