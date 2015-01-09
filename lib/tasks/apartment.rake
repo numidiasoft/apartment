@@ -1,4 +1,4 @@
-require 'apartment/migrator'
+require_relative '../apartment/migrator'
 
 apartment_namespace = namespace :apartment do
 
@@ -27,6 +27,18 @@ apartment_namespace = namespace :apartment do
       end
     end
   end
+
+  desc "Drop all tenants"
+  task :drop do
+    tenants.each do |tenant|
+      begin
+        puts("Droping #{tenant} tenant")
+        quietly { Apartment::Tenant.drop(tenant) }
+      rescue Apartment::TenantNotFound => e
+        puts e.message
+      end
+    end 
+  end 
 
   desc "Seed all tenants"
   task :seed do

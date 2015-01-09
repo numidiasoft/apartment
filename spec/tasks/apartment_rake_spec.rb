@@ -116,5 +116,13 @@ describe "apartment rake tasks" do
         @rake['apartment:rollback'].invoke
       end
     end
+
+    describe "apartment:drop" do
+      it "should drop dbs" do
+        expect(Apartment::Tenant).to receive(:drop).exactly(tenant_count).times
+        @rake['apartment:drop'].invoke
+      end
+    end
+
   end
 end
