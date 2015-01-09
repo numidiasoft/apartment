@@ -6,12 +6,16 @@ require 'apartment/deprecation'
 
 module Apartment
 
+  # default value of load_database_file_schema
+  @load_database_file_schema = true
+
   class << self
 
     extend Forwardable
 
-    ACCESSOR_METHODS  = [:use_schemas, :use_sql, :seed_after_create, :prepend_environment, :append_environment, :load_database_file_schema]
+    ACCESSOR_METHODS  = [:use_schemas, :use_sql, :seed_after_create, :prepend_environment, :append_environment, :load_database_file_schema, :migrations_paths, :load_database_file_schema]
     WRITER_METHODS    = [:tenant_names, :database_schema_file, :excluded_models, :default_schema, :persistent_schemas, :connection_class, :tld_length, :db_migrate_tenants]
+
 
     attr_accessor(*ACCESSOR_METHODS)
     attr_writer(*WRITER_METHODS)
@@ -92,6 +96,17 @@ module Apartment
     def load_database_file_schema
       @load_database_file_schema || true
     end
+
+    def migrations_paths
+        @migrations_paths || ["db/migrate"]
+    end
+
+    def migrations_paths=(paths)
+      raise "Migrations_paths should be an array" if !paths.is_a?(Array)
+      raise "Migrations_paths should not be empty" if paths.empty?
+      @migrations_paths = paths
+    end
+
   end
 
   # Exceptions
