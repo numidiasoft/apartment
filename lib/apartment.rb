@@ -6,9 +6,6 @@ require 'apartment/deprecation'
 
 module Apartment
 
-  # default value of load_database_file_schema
-  @load_database_file_schema = true
-
   class << self
 
     extend Forwardable
@@ -68,6 +65,21 @@ module Apartment
       @tld_length || 1
     end
 
+    def migrations_paths
+      @migrations_paths || ["db/migrate"]
+    end
+
+    def migrations_paths=(paths)
+      raise "Migrations_paths should be an array" if !paths.is_a?(Array)
+      raise "Migrations_paths should not be empty" if paths.empty?
+      @migrations_paths = paths
+    end
+
+    def load_database_file_schema
+      return @load_database_file_schema if defined?(@load_database_file_schema)
+      true
+    end
+
     # Reset all the config for Apartment
     def reset
       (ACCESSOR_METHODS + WRITER_METHODS).each{|method| remove_instance_variable(:"@#{method}") if instance_variable_defined?(:"@#{method}") }
@@ -92,21 +104,6 @@ module Apartment
       Apartment::Deprecation.warn "[Deprecation Warning] `use_postgresql_schemas=` is now deprecated, please use `use_schemas=`"
       self.use_schemas = to_use_or_not_to_use
     end
-
-    def load_database_file_schema
-      @load_database_file_schema || true
-    end
-
-    def migrations_paths
-        @migrations_paths || ["db/migrate"]
-    end
-
-    def migrations_paths=(paths)
-      raise "Migrations_paths should be an array" if !paths.is_a?(Array)
-      raise "Migrations_paths should not be empty" if paths.empty?
-      @migrations_paths = paths
-    end
-
   end
 
   # Exceptions

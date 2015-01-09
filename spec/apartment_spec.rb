@@ -9,6 +9,11 @@ describe Apartment do
     expect(Apartment::Database).to eq(Apartment::Tenant)
   end
 
+  it "should set load_database_file_schema" do
+    Apartment.load_database_file_schema = false
+    expect(Apartment.load_database_file_schema).to be(false)
+  end
+
   it "should set the default value" do
     expect(Apartment.load_database_file_schema).to be(true)
     expect(Apartment.migrations_paths[0]).to eq("db/migrate")
