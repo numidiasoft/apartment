@@ -1,8 +1,7 @@
-# Apartment
-[![Code Climate](https://codeclimate.com/github/influitive/apartment.png)](https://codeclimate.com/github/influitive/apartment)
-[![Build Status](https://secure.travis-ci.org/influitive/apartment.png?branch=development)](http://travis-ci.org/influitive/apartment)
+# Rack Apartment
+[![Build Status](https://drone.io/github.com/numidiasoft/rack-apartment/status.png)](https://drone.io/github.com/numidiasoft/rack-apartment/latest)
 
-*Multitenancy for Rails and ActiveRecord*
+*Multitenancy for Rack and ActiveRecord*
 
 Apartment provides tools to help you deal with multiple tenants in your Rails
 application. If you need to have certain data sequestered based on account or company,
