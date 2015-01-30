@@ -27,7 +27,7 @@ RSpec.configure do |config|
 
   # Somewhat brutal hack so that rails 4 postgres extensions don't modify this file
   config.after(:suite) do
-    #`git checkout -- spec/support/db/schema.rb`
+    `git checkout -- spec/support/db/schema.rb`
   end
 end
 
